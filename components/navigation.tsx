@@ -8,7 +8,7 @@ export function Navigation() {
 
   return (
     <header 
-      className={`fixed w-full top-0 z-50 px-8 py-4 bg-studio-bg/80 backdrop-blur-sm transition-transform duration-300 ${
+      className={`fixed w-full top-0 z-50 px-8 py-4 bg-white/80 backdrop-blur-sm transition-transform duration-300 ${
         scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
       }`}
     >

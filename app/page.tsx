@@ -1,9 +1,18 @@
 import { Navigation } from '../components/navigation'
 import { ScrollTransition } from '../components/scroll-transition'
 import { CodeBlock } from '../components/code-block'
+import { Tooltip } from '../components/tooltip'
 import Image from 'next/image'
 
 const works = [
+  {
+    id: 'hanyun-studio',
+    title: 'Hanyun Studio',
+    year: '2024',
+    description: 'AI ARTIST, CREATIVE TECHNOLOGIST',
+    medium: 'Digital Art Studio',
+    imageUrl: '/placeholder.svg?height=800&width=800'
+  },
   {
     id: 'digital-canvas',
     title: 'Digital Canvas: A Living Artwork',
@@ -63,61 +72,58 @@ export default function Home() {
     <div className="min-h-screen bg-studio-bg text-studio-text">
       <Navigation />
       
-      <main className="pt-32 px-8">
-        <div className="max-w-screen-xl mx-auto">
-          <h1 className="font-serif text-7xl md:text-9xl text-center mb-4">
-            HANYUN STUDIO
-          </h1>
-          <p className="font-mono text-center mb-32">
-            (AI ARTIST, CREATIVE TECHNOLOGIST)
-          </p>
-
-          <div className="grid grid-cols-1 gap-32">
-            {works.map((work) => (
-              <ScrollTransition key={work.id}>
-                <section className="scroll-mt-32" id={work.id}>
-                  <div className="aspect-square relative mb-8">
-                    <Image
-                      src={work.imageUrl}
-                      alt={work.title}
-                      layout="fill"
-                      objectFit="cover"
-                      className="hover:scale-[1.02] transition-transform duration-500"
-                    />
+      <main>
+        {works.map((work, index) => (
+          <section key={work.id} className={`py-32 px-8 ${index % 2 === 0 ? 'bg-white' : 'bg-black text-white'}`}>
+            <div className="max-w-screen-xl mx-auto">
+              <ScrollTransition>
+                {work.id === 'hanyun-studio' ? (
+                  <div className="text-center">
+                    <h1 className="font-serif text-7xl md:text-9xl mb-4">
+                      {work.title}
+                    </h1>
+                    <p className="font-mono text-xl mb-8">
+                      {work.description}
+                    </p>
                   </div>
-                  <div className="max-w-2xl mx-auto">
-                    <div className="font-mono mb-4">
-                      {work.title}, {work.year}
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <div className="aspect-square relative mb-8 w-full max-w-2xl">
+                      <Image
+                        src={work.imageUrl}
+                        alt={work.title}
+                        layout="fill"
+                        objectFit="cover"
+                        className="hover:scale-[1.02] transition-transform duration-500"
+                      />
                     </div>
-                    {'description' in work && (
-                      <div className="font-serif text-lg mb-4 leading-relaxed">
-                        {work.description}
+                    <Tooltip
+                      content={
+                        <div className="font-sans">
+                          <p className="mb-4 text-sm leading-relaxed">{work.description}</p>
+                          {work.codeBlock && <CodeBlock>{work.codeBlock}</CodeBlock>}
+                          {work.description2 && <p className="mb-4 text-sm leading-relaxed">{work.description2}</p>}
+                          {work.codeBlock2 && <CodeBlock>{work.codeBlock2}</CodeBlock>}
+                          {work.description3 && <p className="text-sm leading-relaxed">{work.description3}</p>}
+                        </div>
+                      }
+                      isDarkBackground={index % 2 === 0}
+                    >
+                      <div className="text-center cursor-pointer group">
+                        <h2 className="font-serif text-3xl mb-2 group-hover:text-studio-accent transition-colors">{work.title}</h2>
+                        <p className="font-mono text-sm mb-1">{work.year}</p>
+                        <p className="font-mono text-sm">Medium: {work.medium}</p>
                       </div>
-                    )}
-                    {'codeBlock' in work && <CodeBlock>{work.codeBlock}</CodeBlock>}
-                    {'description2' in work && (
-                      <div className="font-serif text-lg mb-4 leading-relaxed whitespace-pre-wrap">
-                        {work.description2}
-                      </div>
-                    )}
-                    {'codeBlock2' in work && <CodeBlock>{work.codeBlock2}</CodeBlock>}
-                    {'description3' in work && (
-                      <div className="font-serif text-lg mb-4 leading-relaxed">
-                        {work.description3}
-                      </div>
-                    )}
-                    <div className="font-mono text-sm">
-                      Medium: {work.medium}
-                    </div>
+                    </Tooltip>
                   </div>
-                </section>
+                )}
               </ScrollTransition>
-            ))}
-          </div>
-        </div>
+            </div>
+          </section>
+        ))}
       </main>
 
-      <footer className="py-32 px-8">
+      <footer className="py-32 px-8 bg-white">
         <div className="max-w-screen-xl mx-auto font-mono text-sm text-center">
           © 2024 Hanyun Studio
         </div>
