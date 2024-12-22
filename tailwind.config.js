@@ -16,7 +16,7 @@ module.exports = {
         'studio': {
           'bg': '#ffffff',
           'text': '#000000',
-          'accent': '#0000ff',
+          'accent': '#FF6B6B',
         }
       },
     },
